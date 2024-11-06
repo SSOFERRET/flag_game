@@ -43,6 +43,10 @@ export const getGameCommand = (): IGameCommand => {
 export const getJudge = (prevState: IState, currentState: IState, side: TSide, command: ICommand) => {
   const leftAnswer = side === "left" ? command.result : prevState.left;
   const rightAnswer = side === "right" ? command.result : prevState.right;
+  console.log("답", {
+    left: leftAnswer,
+    right: rightAnswer
+  })
 
   if (currentState.left !== leftAnswer)
     return false;

@@ -20,6 +20,7 @@ function Game() {
         right: rightRef.current
       };
       const gameCommand = getGameCommand();
+      console.log("스크립트:", gameCommand.script);
       setScript(gameCommand.script);
       const judge = await new Promise((resolve) => {
         setTimeout(() => {
@@ -28,10 +29,10 @@ function Game() {
             right: rightRef.current
           }
           const judge = getJudge(prevState, currentState, gameCommand.side, gameCommand.command);
-          console.log(prevState, currentState)
+          console.log("현상태:", currentState)
           console.log(judge ? "맞음" : "틀림");
           resolve(judge);
-        }, 3000);
+        }, 5000);
       });
       
       if (judge) {
