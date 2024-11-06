@@ -1,5 +1,5 @@
 import { downCommand, upCommand } from "../constants/commands.constant";
-import { TSide } from "../models/game.model";
+import { ICommand, IFlagSelected, TSide } from "../models/game.model";
 import { getRandomNumber } from "./random.util";
 
 const getSide = (): TSide => {
@@ -14,4 +14,8 @@ const getCommand = (): ICommand | null => {
     case 1: return downCommand[getRandomNumber(0, downCommand.length - 1)];
     default: return null;
   }
+}
+
+const getScriptString = (side: TSide, command: ICommand, flags: IFlagSelected): string => {
+  return `${flags[side].name} ${command.script}`
 }
