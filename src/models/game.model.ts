@@ -19,3 +19,8 @@ export interface ISelectedFlag {
     left: IFlag;
     right: IFlag;
 }
+
+export interface IState {
+    left: TState;
+    right: TState;
+}
