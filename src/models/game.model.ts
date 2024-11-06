@@ -8,3 +8,14 @@ export interface ICommand {
     prevState?: TState;
     result: TState;
 }
+
+export interface IFlag {
+    id: number;
+    color: string;
+    name: string;
+}
+
+export interface IFlagSelected {
+    left: IFlag;
+    right: IFlag;
+}
