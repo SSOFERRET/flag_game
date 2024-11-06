@@ -1,6 +1,6 @@
 import { downCommand, upCommand } from "../constants/commands.constant";
 import { flags } from "../constants/flags.constant";
-import { ICommand, ISelectedFlag, TSide } from "../models/game.model";
+import { ICommand, ISelectedFlag, IState, TSide } from "../models/game.model";
 import { getRandomNumber } from "./random.util";
 
 interface IGameCommand {
@@ -9,7 +9,7 @@ interface IGameCommand {
   script: string;
 }
 
-const getGameCommand = (): IGameCommand => {
+export const getGameCommand = (): IGameCommand => {
   const getSide = (): TSide => {
     const side: TSide[] = ["left", "right"];
     return side[getRandomNumber(0, 1)];
@@ -39,3 +39,14 @@ const getGameCommand = (): IGameCommand => {
 
   return {side, command, script};
 };
+
+export const getJudge = (prevState: IState, currentState: IState, side: TSide, command: ICommand) => {
+  const leftAnswer = side === "left" ? command.result : prevState.left;
+  const rightAnswer = side === "right" ? command.result : prevState.right;
+
+  if (currentState.left !== leftAnswer)
+    return false;
+  if (currentState.right !== rightAnswer)
+    return false;
+  return true;
+}
