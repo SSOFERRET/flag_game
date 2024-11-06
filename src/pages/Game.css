@@ -1,0 +1,51 @@
+.Game {
+  position: relative;
+}
+
+.Game .screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Game .screen .charName {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.Game .screen .score {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.Game .screen .life {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.Game .screen .life .heart {
+  font-size: 60px;
+  width: 80px;
+}
+
+.Game .toggleButton {
+  z-index: 10;
+}
+
+.Game .toggleButton button {
+  position: fixed;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.Game .toggleButton .leftButton {
+  left: 0;
+}
+
+.Game .toggleButton .rightButton {
+  right: 0;
+}
