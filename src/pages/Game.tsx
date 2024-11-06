@@ -1,3 +1,4 @@
+import "./Game.css"
 import { useEffect, useRef, useState } from "react";
 import { TState } from "../models/game.model";
 import { getGameCommand, getJudge } from "../utils/game.util";
@@ -6,11 +7,11 @@ import { getGameCommand, getJudge } from "../utils/game.util";
 function Game() {
   const [left, setLeft] = useState<TState>("down");
   const [right, setRight] = useState<TState>("down");
-  const [life ,setLife] = useState<number>(3);
+  // const [life ,setLife] = useState<number>(3);
   const [script, setScript] = useState<string>("");
   const leftRef = useRef(left);
   const rightRef = useRef(right);
-  const lifeRef = useRef(life);
+  const lifeRef = useRef(3);
   const [score, setScore] = useState<number>(0);
 
   const gameStart = async () => {
@@ -32,14 +33,13 @@ function Game() {
           console.log("현상태:", currentState)
           console.log(judge ? "맞음" : "틀림");
           resolve(judge);
-        }, 5000);
+        }, 1000);
       });
       
       if (judge) {
         setScore((prev) => prev + 1);
       } else {
         lifeRef.current = lifeRef.current - 1;
-        setLife(lifeRef.current);
       }
 
       if (lifeRef.current >= 0) {
@@ -52,9 +52,9 @@ function Game() {
     }
   }
 
-  useEffect(() => {
-    gameStart();
-  }, []);
+  // useEffect(() => {
+  //   gameStart();
+  // }, []);
 
   useEffect(() => {
     leftRef.current = left;
@@ -86,16 +86,22 @@ function Game() {
   }
 
   return (
-    <div className="App">
-      <section className="charName">오똑씨</section>
-      <section className="script"> 스크립트: {script}</section>
-      <section className="character">
-        <button onClick={onClickLeft}>청기 {left}</button>
-        <button onClick={onClickRight}>백기 {right}</button>
+    <div className="Game">
+
+      <section className="screen">
+        <section className="charName">오똑씨</section>
+        <section className="score">{score}</section>
+        {/* <section className="script"> 스크립트: {script}</section> */}
+        <section className="life">
+          <div className="heart">{lifeRef.current >= 1 ? "❤️" : null}</div>
+          <div className="heart">{lifeRef.current >= 2 ? "❤️" : null}</div>
+          <div className="heart">{lifeRef.current === 3 ? "❤️" : null}</div>
+        </section>
       </section>
-      <section className="score">점수: {score}</section>
-      <section className="life">life: {life}</section>
-    
+      <section className="toggleButton">
+        <button className="leftButton" onClick={onClickLeft}></button>
+        <button className="rightButton" onClick={onClickRight}></button>
+      </section>    
     </div>
   )
 }
