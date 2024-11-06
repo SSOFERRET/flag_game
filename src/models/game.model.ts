@@ -15,7 +15,7 @@ export interface IFlag {
     name: string;
 }
 
-export interface IFlagSelected {
+export interface ISelectedFlag {
     left: IFlag;
     right: IFlag;
 }
