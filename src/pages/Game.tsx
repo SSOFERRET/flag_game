@@ -61,12 +61,28 @@ function Game() {
     rightRef.current = right;
   }, [left, right]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+        if (e.key === "d")
+            onClickLeft();
+        else if (e.key === "k")
+            onClickRight();
+    }
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, []);
+
   const onClickLeft = () => {
-    setLeft(left === "down" ? "up" : "down");
+    leftRef.current = leftRef.current ===  "down" ? "up" : "down";
+    setLeft(leftRef.current);
   }
 
   const onClickRight = () => {
-    setRight(right === "down" ? "up" : "down");
+    rightRef.current = rightRef.current === "down" ? "up" : "down";
+    setRight(rightRef.current);
   }
 
   return (
@@ -79,7 +95,7 @@ function Game() {
       </section>
       <section className="score">점수: {score}</section>
       <section className="life">life: {life}</section>
-
+    
     </div>
   )
 }
