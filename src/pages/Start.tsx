@@ -1,3 +1,4 @@
+import Button from "../components/Button";
 import boundStore from "../stores/boundStore.store";
 import "./Start.css"
 
@@ -6,7 +7,12 @@ function Start() {
 
   return (
     <div className="Start">
-        {userName}
+        <section className="userName">
+            {userName}
+        </section>
+        <section className="startButton">
+            <Button text="게임 시작!" onClick={() => {}}/>
+        </section>
     </div>
   )
 }
