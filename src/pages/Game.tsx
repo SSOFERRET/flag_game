@@ -2,9 +2,11 @@ import "./Game.css"
 import { useEffect, useRef, useState } from "react";
 import { TState } from "../models/game.model";
 import { getGameCommand, getJudge } from "../utils/game.util";
+import boundStore from "../stores/boundStore.store";
 
 
 function Game() {
+  const userName = boundStore.use.userName();
   const [left, setLeft] = useState<TState>("down");
   const [right, setRight] = useState<TState>("down");
   // const [life ,setLife] = useState<number>(3);
@@ -89,7 +91,7 @@ function Game() {
     <div className="Game">
 
       <section className="screen">
-        <section className="charName">오똑씨</section>
+        <section className="charName">{userName}</section>
         <section className="score">{score}</section>
         {/* <section className="script"> 스크립트: {script}</section> */}
         <section className="life">
