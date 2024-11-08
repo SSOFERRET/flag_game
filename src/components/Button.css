@@ -1,4 +1,4 @@
-button {
+.Button {
   font-size: 36px;
   padding: 10px 20px;
   border-radius: 20px;
@@ -8,7 +8,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.Button:hover {
   background-color: rgb(50, 163, 255);
   color: white;
 }
