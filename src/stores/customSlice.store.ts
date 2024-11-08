@@ -3,11 +3,11 @@ import { StateCreator } from "zustand";
 export type ICustomSlice = INameCustomSlice
 
 interface INameCustomSlice {
-    name: string;
-    setName: (name: string) => void;
+    userName: string;
+    setUserName: (userName: string) => void;
 }
 
-export const nameCustomSlice: StateCreator<ICustomSlice, [], [], INameCustomSlice> = (set) => ({
-    name: "오똑씨",
-    setName: (name: string) => set(() => ({name})),
+export const userNameSlice: StateCreator<ICustomSlice, [], [], INameCustomSlice> = (set) => ({
+    userName: "오똑씨",
+    setUserName: (userName: string) => set(() => ({userName})),
 })
