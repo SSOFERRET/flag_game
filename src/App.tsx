@@ -1,12 +1,15 @@
 import './App.css'
 import Game from './pages/Game'
+import Start from './pages/Start'
+import Test from './pages/Test'
 
 function App() {
 
 
   return (
     <div>
-      <Game />
+      <Start />
+      {/* <Game /> */}
     </div>
   )
 }
