@@ -1,0 +1,4 @@
+.Start .startButton button {
+  position: relative;
+  z-index: 50;
+}
