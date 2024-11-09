@@ -1,19 +1,27 @@
 import { useEffect } from "react";
 import boundStore from "../stores/boundStore.store";
+import useSound from "use-sound";
+import toggleSound from "./../assets/toggle.mp3";
 
 const useToggleLeftRight = () => {
+  const left = boundStore.use.left();
+  const right = boundStore.use.right();
   const toggleLeft = boundStore.use.toggleLeft();
   const toggleRight = boundStore.use.toggleRight();
 
+  const [playToggle] = useSound(toggleSound, { preload: true });
+
   const onClickLeft = () => {
     toggleLeft();
-    console.log("left")
   }
 
   const onClickRight = () => {
     toggleRight();
-    console.log("right")
   }
+
+  useEffect(() => {
+    playToggle();
+  }, [left, right]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
