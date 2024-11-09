@@ -1,9 +1,13 @@
 import { create } from "zustand";
 import createSelectors from ".";
-import { ICustomSlice, userNameSlice } from "./customSlice.store";
+import { INameCustomSlice, userNameSlice } from "./customSlice.store";
+import { IMotionSlice, motionSlice } from "./motionSlice.store";
 
-const boundStoreBase = create<ICustomSlice>()((...a) => ({
+export type ISlice = INameCustomSlice & IMotionSlice
+
+const boundStoreBase = create<ISlice>()((...a) => ({
     ...userNameSlice(...a),
+    ...motionSlice(...a),
 }));
 
 export default createSelectors(boundStoreBase);
