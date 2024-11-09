@@ -1,0 +1,16 @@
+.toggleButton button {
+  position: fixed;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.toggleButton .leftButton {
+  left: 0;
+}
+
+.toggleButton .rightButton {
+  right: 0;
+}

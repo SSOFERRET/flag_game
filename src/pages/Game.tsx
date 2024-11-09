@@ -2,12 +2,15 @@ import "./Game.css"
 import { useEffect, useRef, useState } from "react";
 import { TState } from "../models/game.model";
 import { getGameCommand, getJudge } from "../utils/game.util";
+import boundStore from "../stores/boundStore.store";
+import useToggleLeftRight from "../hooks/useToggleLeftRight";
 
 
 function Game() {
-  const [left, setLeft] = useState<TState>("down");
-  const [right, setRight] = useState<TState>("down");
-  // const [life ,setLife] = useState<number>(3);
+  const userName = boundStore.use.userName();
+  const left = boundStore.use.left();
+  const right = boundStore.use.right();
+  const {onClickLeft, onClickRight} = useToggleLeftRight();
   const [script, setScript] = useState<string>("");
   const leftRef = useRef(left);
   const rightRef = useRef(right);
@@ -33,7 +36,7 @@ function Game() {
           console.log("현상태:", currentState)
           console.log(judge ? "맞음" : "틀림");
           resolve(judge);
-        }, 1000);
+        }, 5000);
       });
       
       if (judge) {
@@ -52,44 +55,20 @@ function Game() {
     }
   }
 
-  // useEffect(() => {
-  //   gameStart();
-  // }, []);
+  useEffect(() => {
+    gameStart();
+  }, []);
 
   useEffect(() => {
     leftRef.current = left;
     rightRef.current = right;
   }, [left, right]);
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-        if (e.key === "d")
-            onClickLeft();
-        else if (e.key === "k")
-            onClickRight();
-    }
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-        window.removeEventListener("keydown", handleKeyDown);
-    }
-  }, []);
-
-  const onClickLeft = () => {
-    leftRef.current = leftRef.current ===  "down" ? "up" : "down";
-    setLeft(leftRef.current);
-  }
-
-  const onClickRight = () => {
-    rightRef.current = rightRef.current === "down" ? "up" : "down";
-    setRight(rightRef.current);
-  }
-
   return (
     <div className="Game">
 
       <section className="screen">
-        <section className="charName">오똑씨</section>
+        <section className="charName">{userName}</section>
         <section className="score">{score}</section>
         {/* <section className="script"> 스크립트: {script}</section> */}
         <section className="life">
