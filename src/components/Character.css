@@ -1,0 +1,47 @@
+.Character {
+  box-sizing: border-box;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.6);
+}
+
+.Character .body {
+  position: relative;
+  width: 100px;
+  height: 200px;
+}
+
+.Character .head {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+}
+
+.Character .left {
+  position: absolute;
+  transform: translateX(-100%);
+  z-index: 1;
+}
+
+.Character .right {
+  position: absolute;
+  transform: translateX(40%);
+  z-index: 1;
+}
+
+.Character .legs {
+  position: absolute;
+  top: 30%;
+}
+
+.Character .left_up {
+  top: -150%;
+}
+
+.Character .right_up {
+  top: -130%;
+}
