@@ -5,6 +5,7 @@
   height: 100vh;
   border: none;
   background-color: rgba(255, 255, 255, 0);
+  z-index: 10;
 }
 
 .toggleButton .leftButton {
@@ -13,4 +14,22 @@
 
 .toggleButton .rightButton {
   right: 0;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.background img {
+  height: 100vh;
+  width: auto;
+  object-fit: cover;
 }

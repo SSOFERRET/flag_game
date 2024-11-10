@@ -9,7 +9,7 @@ const useToggleLeftRight = () => {
   const toggleLeft = boundStore.use.toggleLeft();
   const toggleRight = boundStore.use.toggleRight();
 
-  const [playToggle] = useSound(toggleSound, { preload: true });
+  const [playToggle] = useSound(toggleSound);
 
   const onClickLeft = () => {
     toggleLeft();

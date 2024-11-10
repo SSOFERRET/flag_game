@@ -4,6 +4,7 @@ import boundStore from "../stores/boundStore.store";
 import "./Start.css"
 import useToggleLeftRight from "../hooks/useToggleLeftRight";
 import useKeyEnter from "../hooks/useKeyEnter";
+import Character from "../components/Character";
 
 function Start() {
   const userName = boundStore.use.userName();
@@ -17,9 +18,14 @@ function Start() {
         <button className="leftButton" onClick={onClickLeft}></button>
         <button className="rightButton" onClick={onClickRight}></button>
       </section> 
+      <section className="title">
+        <h2>휘날려라!!!</h2>
+        <h1>청기 백기</h1>
+      </section>
       <section className="userName">
         {userName}
       </section>
+      <Character />
       <section className="startButton">
             <Button text="게임 시작!" onClick={() => {nav('/game')}}/>
       </section>
