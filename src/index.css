@@ -71,11 +71,4 @@ body {
   background-color: rgb(238, 238, 238);
 }
 
-#root {
-  background-color: white;
-  min-width: 600px;
-  max-width: 1200px;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 40px;
-}
+
