@@ -22,9 +22,6 @@ function Start() {
         <h2>휘날려라!!!</h2>
         <h1>청기 백기</h1>
       </section>
-      <section className="userName">
-        {userName}
-      </section>
       <Character />
       <section className="startButton">
             <Button text="게임 시작!" onClick={() => {nav('/game')}}/>
