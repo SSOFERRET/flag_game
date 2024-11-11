@@ -3,6 +3,7 @@ import './App.css'
 import Game from './pages/Game'
 import Start from './pages/Start'
 import background from "./assets/background.png";
+import End from './pages/End';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Start />} />
         <Route path='/game' element={<Game />} />
+        <Route path='/end' element={<End />} />
       </Routes>
       <section className="background">
         <img src={background} />
