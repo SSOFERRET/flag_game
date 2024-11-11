@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import boundStore from "../stores/boundStore.store";
 import "./Start.css"
 import useToggleLeftRight from "../hooks/useToggleLeftRight";
 import useKeyEnter from "../hooks/useKeyEnter";
 import Character from "../components/Character";
 
 function Start() {
-  const userName = boundStore.use.userName();
   const nav = useNavigate();
   const {onClickLeft, onClickRight} = useToggleLeftRight();
   useKeyEnter();

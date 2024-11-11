@@ -7,7 +7,7 @@ import rightUpImg from "./../assets/rightUp.png";
 import legImg from "./../assets/legs.png";
 import boundStore from "../stores/boundStore.store";
 
-const Character = () => {
+const Character = ({hasUserName=true}) => {
   const left = boundStore.use.left();
   const right = boundStore.use.right();
   const userName = boundStore.use.userName();
@@ -15,7 +15,7 @@ const Character = () => {
   return (
     <div className="Character">
         <section className="body">
-        <div className="userName">{userName}</div>
+        {hasUserName ? <div className="userName">{userName}</div> : null}
         <img className="head" src={headImg} />
         <img className={`left left_${left}`} src={left==="down" ? leftDownImg : leftUpImg} />
         <img className={`right right_${right}`} src={right==="down" ? rightDownImg : rightUpImg} />
