@@ -5,6 +5,11 @@
   gap: 20px;
 }
 
+.Start .title img {
+  max-width: 360px;
+  animation: titleAnimation 3s ease-in-out infinite;
+}
+
 .Start .userName {
   font-size: 40px;
   font-weight: 700;
@@ -15,9 +20,55 @@
   top: 48%;
 }
 
-.Start .startButton button {
-  position: fixed;
-  transform: translateX(-50%);
-  top: 80%;
+.Start .startButton {
+  width: 100px;
+  height: 50px;
+  animation: buttonAnimation 2s ease-in-out infinite;
   z-index: 51;
+  position: fixed;
+  top: 80%;
+  cursor: pointer;
+}
+
+.Start .startButton .buttonText {
+  position: fixed;
+  width: 280px;
+  left: -54px;
+  top: 10px;
+  z-index: 55;
+  font-size: 50px;
+}
+
+.Start .startButton img {
+  max-width: 280px;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  left: 50%;
+  top: 85%;
+  cursor: pointer;
+  z-index: 52;
+}
+
+@keyframes titleAnimation {
+  0%, 46%, 54%, 100% {
+    transform: scaleX(1);
+    transform: scaleY(1);
+  } 
+  48%, 52% {
+    transform: scaleX(1.1);
+    transform: scaleY(0.9);
+  }
+  50% {
+    transform: scaleX(0.9);
+    transform: scaleY(1.1);
+  }
+}
+
+@keyframes buttonAnimation {
+  0%, 100% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
 }

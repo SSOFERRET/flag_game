@@ -11,6 +11,9 @@
   position: relative;
   width: 100px;
   height: 200px;
+}
+
+.Character .body_move {
   animation: breathing 0.5s ease-in-out infinite;
 }
 
@@ -47,6 +50,9 @@
   position: absolute;
   z-index: -1;
   top: 30%;
+}
+
+.Character .legs_move {
   animation: breathing_leg 0.5s ease-in-out infinite;
 }
 
