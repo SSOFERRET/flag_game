@@ -7,7 +7,7 @@ import rightUpImg from "./../assets/rightUp.png";
 import legImg from "./../assets/legs.png";
 import boundStore from "../stores/boundStore.store";
 
-const Character = ({hasUserName=true, hasMotion=true}) => {
+const Character = ({hasUserName=true, hasMotion=true, onlyHead=false}) => {
   const left = boundStore.use.left();
   const right = boundStore.use.right();
   const userName = boundStore.use.userName();
@@ -17,10 +17,16 @@ const Character = ({hasUserName=true, hasMotion=true}) => {
         <section className={`body body_${hasMotion ? "move":""}`}>
         {hasUserName ? <div className="userName">{userName}</div> : null}
         <img className="head" src={headImg} />
-        <img className={`left left_${left}`} src={left==="down" ? leftDownImg : leftUpImg} />
-        <img className={`right right_${right}`} src={right==="down" ? rightDownImg : rightUpImg} />
+        {
+          !onlyHead ? (
+            <>
+              <img className={`left left_${left}`} src={left==="down" ? leftDownImg : leftUpImg} />
+              <img className={`right right_${right}`} src={right==="down" ? rightDownImg : rightUpImg} />
+            </>
+          ) : null
+        }
       </section>
-      <img className={`legs leg_${hasMotion ? 'move':''}`} src={legImg} />
+      { !onlyHead ? <img className={`legs leg_${hasMotion ? 'move':''}`} src={legImg} /> : null}
     </div>
   )
 }
