@@ -5,7 +5,7 @@ const useKeyEnter = () => {
   const nav = useNavigate();
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter")
         nav('/game', { replace: true });
     }

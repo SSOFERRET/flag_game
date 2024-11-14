@@ -24,7 +24,7 @@ const useToggleLeftRight = () => {
   }, [left, right]);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "d")
         onClickLeft();
       else if (e.key === "k")
