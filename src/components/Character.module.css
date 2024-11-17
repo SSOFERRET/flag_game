@@ -54,13 +54,10 @@
   z-index: -1;
   top: 26%;
   width: 30%;
-}
-
-.legs_move {
   animation: breathing_leg 0.5s ease-in-out infinite;
 }
 
-.left_up {
+.leftUp {
   position: absolute;
   transform: translateX(-50%);
   width: 56%;
@@ -69,7 +66,7 @@
   top: -150%;
 }
 
-.right_up {
+.rightUp {
   position: absolute;
   transform: translateX(-50%);
   width: 60%;
