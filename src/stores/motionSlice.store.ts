@@ -7,6 +7,7 @@ export interface IMotionSlice {
   right: TState;
   toggleLeft: () => void;
   toggleRight: () => void;
+  setInitializeMotion: () => void;
 }
 
 export const motionSlice: StateCreator<ISlice, [], [], IMotionSlice> = (set) => ({
@@ -14,4 +15,5 @@ export const motionSlice: StateCreator<ISlice, [], [], IMotionSlice> = (set) => 
   right: "down",
   toggleLeft: () => set((state) => ({ left: state.left === "down" ? "up" : "down" })),
   toggleRight: () => set((state) => ({ right: state.right === "down" ? "up" : "down" })),
+  setInitializeMotion: () => set(() => ({ left: "down", right: "down" })),
 });
