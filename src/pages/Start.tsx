@@ -1,20 +1,28 @@
-import { useNavigate } from "react-router-dom";
-import title from "../assets/title2.png";
-import button2 from "../assets/button2.png";
+import style from "./Start.module.css";
+import title from "../assets/images/title2.png";
+import button2 from "../assets/images/button2.png";
 import Layout from "../components/Layout";
+import useKeyEnter from "../hooks/useKeyEnter";
+import useStartGame from "../hooks/useStartGame";
 
 function Start() {
-  const nav = useNavigate();
+  useKeyEnter();
+  const startGame = useStartGame();
 
   return (
     <Layout 
-      headChild={<img src={title} />}
+      headChild={
+        <section className={style.title}> 
+          <img src={title} />
+        </section>
+      }
       footChild={(
-        <section className="startButton" onClick={() => nav("/game")}>
-          <div className="buttonText">게임 시작!</div>
+        <section className={style.startButton} onClick={startGame}>
+          <div className={style.buttonText}>게임 시작!</div>
           <img src={button2}/>
         </section>
       )}
+      onClick={()=>{console.log("마이 보디!!!")}}
     />
   )
 }

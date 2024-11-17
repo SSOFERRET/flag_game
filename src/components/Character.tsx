@@ -1,32 +1,32 @@
-import "./Character.css"
-import headImg from "./../assets/head.png";
-import leftDownImg from "./../assets/leftDown.png";
-import leftUpImg from "./../assets/leftUp.png";
-import rightDownImg from "./../assets/rightDown.png";
-import rightUpImg from "./../assets/rightUp.png";
-import legImg from "./../assets/legs.png";
+import style from "./Character.module.css";
+import headImg from "./../assets/images/head.png";
+import leftDownImg from "./../assets/images/leftDown.png";
+import leftUpImg from "./../assets/images/leftUp.png";
+import rightDownImg from "./../assets/images/rightDown.png";
+import rightUpImg from "./../assets/images/rightUp.png";
+import legImg from "./../assets/images/legs.png";
 import boundStore from "../stores/boundStore.store";
 
-const Character = ({hasUserName=true, hasMotion=true, onlyHead=false}) => {
+const Character = () => {
   const left = boundStore.use.left();
   const right = boundStore.use.right();
   const userName = boundStore.use.userName();
 
   return (
-    <div className="Character">
-        <section className={`body body_${hasMotion ? "move":""}`}>
-        {hasUserName ? <div className="userName">{userName}</div> : null}
-        <img className="head" src={headImg} />
-        {
-          !onlyHead ? (
-            <>
-              <img className={`left left_${left}`} src={left==="down" ? leftDownImg : leftUpImg} />
-              <img className={`right right_${right}`} src={right==="down" ? rightDownImg : rightUpImg} />
-            </>
-          ) : null
-        }
+    <div className={style.Character}>
+        <section className={style.body}>
+          <div className={style.userName}>{userName}</div>
+          <img className={style.head} 
+            src={headImg}
+            />
+          <img className={`${left === "down" ? style.left : style.leftUp}`} 
+            src={left==="down" ? leftDownImg : leftUpImg} 
+          />
+          <img className={`${right === "down" ? style.right : style.rightUp}`}  
+            src={right==="down" ? rightDownImg : rightUpImg}
+          />
       </section>
-      { !onlyHead ? <img className={`legs leg_${hasMotion ? 'move':''}`} src={legImg} /> : null}
+      <img className={style.legs} src={legImg} />
     </div>
   )
 }
