@@ -1,0 +1,24 @@
+.score {
+  width: 100%;
+  position: relative;
+  top: 40%;
+  font-family: Jalnan;
+  text-align: center;
+  font-size: 12vh;
+  font-weight: 400;
+  color: white;
+  -webkit-text-stroke: 0.6vh rgb(0, 63, 105);
+}
+
+.life {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 2%;
+}
+
+.heart {
+  position: relative;
+  width: 20%;
+  margin-top: 20%;
+}

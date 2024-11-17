@@ -1,31 +1,29 @@
-import "./Start.css"
-import { useNavigate } from "react-router-dom";
-import useToggleLeftRight from "../hooks/useToggleLeftRight";
+import style from "./Start.module.css";
+import title from "../assets/images/title2.png";
+import button2 from "../assets/images/button2.png";
+import Layout from "../components/Layout";
 import useKeyEnter from "../hooks/useKeyEnter";
-import Character from "../components/Character";
-import title from "../assets/title2.png";
-import button2 from "../assets/button2.png";
+import useStartGame from "../hooks/useStartGame";
 
 function Start() {
-  const nav = useNavigate();
-  const {onClickLeft, onClickRight} = useToggleLeftRight();
   useKeyEnter();
+  const startGame = useStartGame();
 
   return (
-    <div className="Start">
-      <section className="toggleButton">
-        <button className="leftButton" onClick={onClickLeft}></button>
-        <button className="rightButton" onClick={onClickRight}></button>
-      </section> 
-      <section className="title">
-        <img src={title} />
-      </section>
-      <Character />
-      <section className="startButton" onClick={() => nav("/game")}>
-        <div className="buttonText">게임 시작!</div>
-        <img src={button2}/>
-      </section>
-    </div>
+    <Layout 
+      headChild={
+        <section className={style.title}> 
+          <img src={title} />
+        </section>
+      }
+      footChild={(
+        <section className={style.startButton} onClick={startGame}>
+          <div className={style.buttonText}>게임 시작!</div>
+          <img src={button2}/>
+        </section>
+      )}
+      onClick={()=>{console.log("마이 보디!!!")}}
+    />
   )
 }
 

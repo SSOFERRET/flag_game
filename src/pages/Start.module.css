@@ -1,0 +1,86 @@
+.title {
+  width: 100%;
+  height: 100%;
+}
+
+.title img {
+  width: 84%;
+  position: relative;
+  transform: translateX(-50%) translateY(-50%);
+  top: 50%;
+  left: 50%;
+  animation: titleAnimation 3s ease-in-out infinite;
+}
+
+@keyframes titleAnimation {
+  0%, 46%, 54%, 100% {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+  }
+  48%, 52% {
+    transform: translateX(-50%) translateY(-50%) scale(1.1, 0.9);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-50%) scale(0.9, 1.1);
+  }
+  
+}
+
+.startButton {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 60;
+  cursor: pointer;
+  animation: buttonAnimation 3s ease-in-out infinite;
+}
+
+@keyframes buttonAnimation {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -5px;
+  }
+}
+
+.startButton img {
+  width: 80%;
+  transform: translateX(-50%) translateY(-50%);
+  position: relative;
+  left: 50%;
+  top: 50%;
+}
+
+.startButton:hover{
+  img {
+    content: url(./../assets/images/button1.png);
+    top: 48%;
+  }
+
+  .buttonText {
+    font-style: italic;
+  }
+}
+
+.startButton:active {
+  img {
+    content: url(./../assets/images/button1.png);
+    top: 48%;
+  }
+
+  .buttonText {
+    font-style: italic;
+  }
+
+}
+  
+.buttonText {
+  font-size: 8vh;
+  font-weight: 500;
+  z-index: 5;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+}
