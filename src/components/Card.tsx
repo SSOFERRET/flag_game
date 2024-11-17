@@ -1,13 +1,12 @@
 import style from "./Card.module.css";
 import boundStore from "../stores/boundStore.store";
-import Character from "./Character";
-import title3 from "./../assets/title3.png";
-import left from "./../assets/share_left.png";
-import flag from "./../assets/flag.png";
+import title3 from "./../assets/images/title3.png";
 import { forwardRef } from "react";
+import cardImg from "../assets/images/endCard.png";
+
 
 const Card = forwardRef<HTMLDivElement>((_, ref) => {
-    const score = 10;
+    const score = boundStore.use.score();
     // const userName = boundStore.use.userName();
 
     if (!ref) return null;
@@ -18,12 +17,8 @@ const Card = forwardRef<HTMLDivElement>((_, ref) => {
                 <img  src={title3} />
             </section>
             <section className={style.innerContainer}>
-                <div className={style.score}>{score}점!</div>
-                <div className={style.character}>
-                    <Character hasUserName={true} hasMotion={false} onlyHead={true} />
-                    <img className={style.left} src={left} />
-                    <img className={style.flag} src={flag} />
-                </div>
+                <div className={style.score}>{score}<span>점!</span></div>
+                <img src={cardImg} />
             </section>
         </div>
     )

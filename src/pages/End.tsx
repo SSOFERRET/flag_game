@@ -1,11 +1,13 @@
+import style from "./End.module.css";
 import { useRef } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
-import "./End.css";
 import html2canvas from "html2canvas";
+import { useNavigate } from "react-router-dom";
 
 const End = () => {
     const cardRef = useRef<HTMLDivElement>(null);
+    const nav = useNavigate();
 
     const onClickSaveImage = () => {
         if (cardRef.current) {
@@ -20,11 +22,10 @@ const End = () => {
           };
 
     return (
-        <div className="End">
+        <div className={style.End}>
             <Card ref={cardRef} />
-            <section className="shareButtons">
-                <Button text="이미지로 저장" onClick={onClickSaveImage}/>
-            </section>
+            <Button text="이미지로 저장" onClick={onClickSaveImage}/>
+            <Button text="게임 다시 시작!" onClick={() => nav("/", {replace: true})} />
         </div>
     )
 };

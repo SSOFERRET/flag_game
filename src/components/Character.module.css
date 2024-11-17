@@ -1,66 +1,80 @@
 .Character {
   box-sizing: border-box;
-  width: 400px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   transform: scale(0.6);
 }
 
-.Character .body {
+.body {
   position: relative;
-  width: 100px;
-  height: 200px;
-}
-
-.Character .body_move {
+  width: 100%;
+  height: 28vh;
   animation: breathing 0.5s ease-in-out infinite;
 }
 
-.Character .userName {
-  width: 100px;
+.userName {
+  width: 100%;
   position: absolute;
-  top: -110px;
-  font-size: 32px;
+  transform: translateY(-50%, -50%);
+  top: -60%;
+  text-align: center;
+  font-size: 6vh;
   font-weight: 600;
   padding: 10px;
 }
 
-.Character .head {
+.head {
   position: absolute;
-  top: -50px;
+  width: 40%;
+  top: -28%;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 50;
+  z-index: 10;
 }
 
-.Character .left {
+.left {
   position: absolute;
-  transform: translateX(-100%);
+  width: 60%;
+  transform: translateX(-50%);
+  left: 10%
+}
+
+.right {
+  position: absolute;
+  width: 60%;
+  transform: translateX(-50%);
+  left: 92%;
   z-index: 1;
 }
 
-.Character .right {
-  position: absolute;
-  transform: translateX(40%);
-  z-index: 1;
-}
-
-.Character .legs {
+.legs {
   position: absolute;
   z-index: -1;
-  top: 30%;
+  top: 26%;
+  width: 30%;
 }
 
-.Character .legs_move {
+.legs_move {
   animation: breathing_leg 0.5s ease-in-out infinite;
 }
 
-.Character .left_up {
+.left_up {
+  position: absolute;
+  transform: translateX(-50%);
+  width: 56%;
+  left: 10%;
+  z-index: 1;
   top: -150%;
 }
 
-.Character .right_up {
+.right_up {
+  position: absolute;
+  transform: translateX(-50%);
+  width: 60%;
+  left: 92%;
+  z-index: 1;
   top: -130%;
 }
 

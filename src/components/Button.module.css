@@ -1,5 +1,5 @@
-.Button {
-  font-size: 36px;
+.button {
+  font-size: 4vh;
   padding: 10px 20px;
   border-radius: 20px;
   border: none;
@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.Button:hover {
+.button:hover {
   background-color: rgb(50, 163, 255);
   color: white;
 }
