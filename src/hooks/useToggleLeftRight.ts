@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import boundStore from "../stores/boundStore.store";
 import useSound from "use-sound";
-import toggleSound from "./../assets/toggle.mp3";
+import toggleSound from "./../assets/sounds/toggle.mp3";
 
 const useToggleLeftRight = () => {
   const left = boundStore.use.left();

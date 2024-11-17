@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Game from './pages/Game'
 import Start from './pages/Start'
-import background from "./assets/background.png";
+import background from "./assets/images/background.png";
 import End from './pages/End';
 
 function App() {
