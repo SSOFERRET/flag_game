@@ -19,10 +19,10 @@ const Character = () => {
           <img className={style.head} 
             src={headImg}
             />
-          <img className={`${left === "down" ? style.left : style.leftUp}`} 
+          <img key={`left_${left}`} className={`${left === "down" ? style.left : style.leftUp}`} 
             src={left==="down" ? leftDownImg : leftUpImg} 
           />
-          <img className={`${right === "down" ? style.right : style.rightUp}`}  
+          <img key={`right_${right}`} className={`${right === "down" ? style.right : style.rightUp}`}  
             src={right==="down" ? rightDownImg : rightUpImg}
           />
       </section>
