@@ -1,20 +1,30 @@
-import "./Game.css"
-import { useEffect, useRef, useState } from "react";
+import style from "./Game.module.css";
+import { useEffect } from "react";
 import { getGameCommand, getJudge } from "../utils/game.util";
 import boundStore from "../stores/boundStore.store";
-import useToggleLeftRight from "../hooks/useToggleLeftRight";
+import Layout from "../components/Layout";
+import heart2 from "./../assets/images/heart2.png";
+import heart3 from "./../assets/images/heart3.png";
+import { useNavigate } from "react-router-dom";
 
 
 function Game() {
-  const userName = boundStore.use.userName();
+  const nav = useNavigate();
+
   const left = boundStore.use.left();
   const right = boundStore.use.right();
-  const {onClickLeft, onClickRight} = useToggleLeftRight();
-  const lifeRef = useRef(3);
-  const [score, setScore] = useState<number>(0);
+  const score = boundStore.use.score();
+  const life = boundStore.use.life();
+
+  const loseLife = boundStore.use.loseLife();
+  const addScore = boundStore.use.addScore();
+  const setContinue = boundStore.use.setContinue();
+
+  const {continueGame: currentContinue} = boundStore.getState();
+
+  console.log(currentContinue)
 
   const gameStart = async () => {
-    if (lifeRef.current >= 0) {
       const prevState = {left, right};
       const gameCommand = getGameCommand();
       console.log("스크립트:", gameCommand.script);
@@ -29,47 +39,45 @@ function Game() {
           console.log("현상태:", currentState)
           console.log(judge ? "맞음" : "틀림");
           resolve(judge);
-        }, 5000);
+        }, 2000);
       });
-      
-      if (judge) {
-        setScore((prev) => prev + 1);
-      } else {
-        lifeRef.current = lifeRef.current - 1;
-      }
 
-      if (lifeRef.current >= 0) {
-        console.log("생명 개수:", lifeRef.current);
+      const {life: currentLife} = boundStore.getState()
+
+      if (judge) 
+        addScore();
+      else if (!judge && currentLife > 0)
+        loseLife();
+      else if (!judge && currentLife === 0)
+        setContinue(false);
+
+      const {continueGame: currentContinue} = boundStore.getState();
+
+      console.log(currentContinue)
+        
+      if (currentContinue) 
         gameStart();
-      } else {
-        console.log("게임 오버!");
-        return;
-      }
+      else if (!currentContinue && currentLife === 0)
+        setTimeout(() => {nav("/end", {replace: true})}, 3000);
     }
-  }
 
   useEffect(() => {
     gameStart();
+
+    return () => setContinue(false);
   }, []);
 
   return (
-    <div className="Game">
-
-      <section className="screen">
-        <section className="charName">{userName}</section>
-        <section className="score">{score}</section>
-        {/* <section className="script"> 스크립트: {script}</section> */}
-        <section className="life">
-          <div className="heart">{lifeRef.current >= 1 ? "❤️" : null}</div>
-          <div className="heart">{lifeRef.current >= 2 ? "❤️" : null}</div>
-          <div className="heart">{lifeRef.current === 3 ? "❤️" : null}</div>
+    <Layout 
+      headChild={<section className={style.score}>{score}</section>}
+      footChild={
+        <section className={style.life}>
+          <img className={style.heart} src={life >= 1 ? heart3:""} />
+          <img className={style.heart} src={life >= 2 ? heart2:""} />
+          <img className={style.heart} src={life >= 3 ? heart3:""} />
         </section>
-      </section>
-      <section className="toggleButton">
-        <button className="leftButton" onClick={onClickLeft}></button>
-        <button className="rightButton" onClick={onClickRight}></button>
-      </section>    
-    </div>
+      }
+    />
   )
 }
 
