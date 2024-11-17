@@ -53,7 +53,7 @@
 
 .startButton:hover{
   img {
-    content: url(./../assets/images/button1.png);
+    content: url(./../assets/images/button1.webp);
     top: 48%;
   }
 
@@ -64,7 +64,7 @@
 
 .startButton:active {
   img {
-    content: url(./../assets/images/button1.png);
+    content: url(./../assets/images/button1.webp);
     top: 48%;
   }
 

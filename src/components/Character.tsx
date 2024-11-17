@@ -1,10 +1,10 @@
 import style from "./Character.module.css";
-import headImg from "./../assets/images/head.png";
-import leftDownImg from "./../assets/images/leftDown.png";
-import leftUpImg from "./../assets/images/leftUp.png";
-import rightDownImg from "./../assets/images/rightDown.png";
-import rightUpImg from "./../assets/images/rightUp.png";
-import legImg from "./../assets/images/legs.png";
+import headImg from "./../assets/images/head.webp";
+import leftDownImg from "./../assets/images/leftDown.webp";
+import leftUpImg from "./../assets/images/leftUp.webp";
+import rightDownImg from "./../assets/images/rightDown.webp";
+import rightUpImg from "./../assets/images/rightUp.webp";
+import legImg from "./../assets/images/legs.webp";
 import boundStore from "../stores/boundStore.store";
 
 const Character = () => {

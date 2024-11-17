@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { getGameCommand, getJudge } from "../utils/game.util";
 import boundStore from "../stores/boundStore.store";
 import Layout from "../components/Layout";
-import heart2 from "./../assets/images/heart2.png";
-import heart3 from "./../assets/images/heart3.png";
+import heart2 from "./../assets/images/heart2.webp";
+import heart3 from "./../assets/images/heart3.webp";
 import { useNavigate } from "react-router-dom";
 
 

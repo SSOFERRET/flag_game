@@ -1,8 +1,8 @@
 import style from "./Card.module.css";
 import boundStore from "../stores/boundStore.store";
-import title3 from "./../assets/images/title3.png";
+import title3 from "./../assets/images/title3.webp";
 import { forwardRef } from "react";
-import cardImg from "../assets/images/endCard.png";
+import cardImg from "../assets/images/endCard.webp";
 
 
 const Card = forwardRef<HTMLDivElement>((_, ref) => {
