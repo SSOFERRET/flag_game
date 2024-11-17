@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import useStartGame from "./useStartGame";
 
 const useKeyEnter = () => {
-  const nav = useNavigate();
+  const startGame = useStartGame();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter")
-        nav('/game', { replace: true });
+        startGame();
     }
     window.addEventListener("keydown", handleKeyDown);
 
