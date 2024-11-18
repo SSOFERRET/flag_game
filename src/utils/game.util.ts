@@ -26,7 +26,7 @@ export const getGameCommand = (): IGameCommand => {
 
   const getCommand = (): ICommand => {
     const randomNumber = getRandomNumber(0, commands.length - 1);
-    
+
     return commands[randomNumber];
   }
 
@@ -68,12 +68,6 @@ export const getJudge = (prevState: IState, currentState: IState, side: TSide, c
 
   if (side === "right" && command.result !== "stay")
     rightAnswer = command.result;
-
-
-  console.log("답", {
-    leftAnswer,
-    rightAnswer
-  })
 
   if (currentState.left !== leftAnswer)
     return false;
