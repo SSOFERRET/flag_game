@@ -1,12 +1,13 @@
 import style from "./Game.module.css";
-import { useEffect } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { getGameCommand, getJudge } from "../utils/game.util";
 import boundStore from "../stores/boundStore.store";
 import Layout from "../components/Layout";
 import heart2 from "./../assets/images/heart2.webp";
 import heart3 from "./../assets/images/heart3.webp";
 import { useNavigate } from "react-router-dom";
-
+import useScriptSound from "../hooks/useScriptSound";
+import Button from "../components/Button";
 
 function Game() {
   const nav = useNavigate();
@@ -20,46 +21,53 @@ function Game() {
   const addScore = boundStore.use.addScore();
   const setContinue = boundStore.use.setContinue();
 
-  const {continueGame: currentContinue} = boundStore.getState();
-
-  console.log(currentContinue)
+  const [scriptSounds, setScriptSounds] = useState<string[]>([]);
+  const { playAll } = useScriptSound(scriptSounds);
+  // const playButtonRef = useRef<HTMLButtonElement|null>(null);
 
   const gameStart = async () => {
-      const prevState = {left, right};
-      const gameCommand = getGameCommand();
-      console.log("스크립트:", gameCommand.script);
-      const judge = await new Promise((resolve) => {
-        setTimeout(() => {
-          const {left: currentLeft, right: currentRight} = boundStore.getState();
-          const currentState = {
-            left: currentLeft, 
-            right: currentRight
-          }
-          const judge = getJudge(prevState, currentState, gameCommand.side, gameCommand.command);
-          console.log("현상태:", currentState)
-          console.log(judge ? "맞음" : "틀림");
-          resolve(judge);
-        }, 2000);
-      });
+    const prevState = { left, right };
+    const gameCommand = getGameCommand();
+    console.log("스크립트:", gameCommand.script);
 
-      const {life: currentLife} = boundStore.getState()
+    setScriptSounds(gameCommand.sounds);
+    // playButtonRef.current!.click();
 
-      if (judge) 
-        addScore();
-      else if (!judge && currentLife > 0)
-        loseLife();
-      else if (!judge && currentLife === 0)
-        setContinue(false);
+    // const judge = await new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     const { left: currentLeft, right: currentRight } = boundStore.getState();
+    //     const currentState = {
+    //       left: currentLeft,
+    //       right: currentRight,
+    //     };
+    //     const judge = getJudge(
+    //       prevState,
+    //       currentState,
+    //       gameCommand.side,
+    //       gameCommand.command
+    //     );
+    //     console.log("현상태:", currentState);
+    //     console.log(judge ? "맞음" : "틀림");
+    //     resolve(judge);
+    //   }, 2000);
+    // });
 
-      const {continueGame: currentContinue} = boundStore.getState();
+    // const { life: currentLife } = boundStore.getState();
 
-      console.log(currentContinue)
-        
-      if (currentContinue) 
-        gameStart();
-      else if (!currentContinue && currentLife === 0)
-        setTimeout(() => {nav("/end", {replace: true})}, 3000);
-    }
+    // if (judge) addScore();
+    // else if (!judge && currentLife > 0) loseLife();
+    // else if (!judge && currentLife === 0) setContinue(false);
+
+    // const { continueGame: currentContinue } = boundStore.getState();
+
+    // console.log(currentContinue);
+
+    // if (currentContinue) gameStart();
+    // else if (!currentContinue && currentLife === 0)
+    //   setTimeout(() => {
+    //     nav("/end", { replace: true });
+    //   }, 3000);
+  };
 
   useEffect(() => {
     gameStart();
@@ -67,18 +75,22 @@ function Game() {
     return () => setContinue(false);
   }, []);
 
+
   return (
-    <Layout 
-      headChild={<section className={style.score}>{score}</section>}
-      footChild={
-        <section className={style.life}>
-          <img className={style.heart} src={life >= 1 ? heart3:""} />
-          <img className={style.heart} src={life >= 2 ? heart2:""} />
-          <img className={style.heart} src={life >= 3 ? heart3:""} />
-        </section>
-      }
-    />
-  )
+    <>
+      <Layout
+        headChild={<section className={style.score}>{score}</section>}
+        footChild={
+          <section className={style.life}>
+            <img className={style.heart} src={life >= 1 ? heart3 : ""} />
+            <img className={style.heart} src={life >= 2 ? heart2 : ""} />
+            <img className={style.heart} src={life >= 3 ? heart3 : ""} />
+          </section>
+        }
+      />
+      <button className={style.soundButton} ref={playButtonRef} onClick={playAll}></button>
+    </>
+  );
 }
 
 export default Game;
