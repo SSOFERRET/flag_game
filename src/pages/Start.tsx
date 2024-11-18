@@ -4,21 +4,17 @@ import button2 from "../assets/images/button2.webp";
 import Layout from "../components/Layout";
 import useKeyEnter from "../hooks/useKeyEnter";
 import useStartGame from "../hooks/useStartGame";
-import soundTest from "./../assets/scripts/01_blue.mp3";
 import Modal from "../components/Modal";
-import boundStore from "../stores/boundStore.store";
 
 function Start() {
   useKeyEnter();
   const startGame = useStartGame();
-  const setAudio = boundStore.use.setAudio();
 
   return (
     <div className={style.Start}>
       <Modal 
         text="음성이 재생됩니다!"
         buttonText="준비됐어요!"
-        onClick={() => setAudio(soundTest)}
        />
       <Layout 
         headChild={
