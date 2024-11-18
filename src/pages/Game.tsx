@@ -98,6 +98,10 @@ function Game() {
 
   useEffect(() => {
     gameStart();
+
+    return () => {
+      setContinue(false);
+    }
   }, []);
 
   useEffect(() => {
