@@ -1,14 +1,44 @@
-.button {
-  font-size: 4vh;
+.buttonLarge {
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   border: none;
   color: white;
   background-color: rgb(11, 116, 202);
   cursor: pointer;
+  font-size: 4vh;
 }
 
-.button:hover {
+.buttonMiddle {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: rgb(11, 116, 202);
+  cursor: pointer;
+  font-size: 3vh;
+}
+
+.buttonSmall {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: rgb(11, 116, 202);
+  cursor: pointer;
+  font-size: 2vh;
+}
+
+.buttonLarge:hover {
+  background-color: rgb(50, 163, 255);
+  color: white;
+}
+
+.buttonMiddle:hover {
+  background-color: rgb(50, 163, 255);
+  color: white;
+}
+
+.buttonSmall:hover {
   background-color: rgb(50, 163, 255);
   color: white;
 }
