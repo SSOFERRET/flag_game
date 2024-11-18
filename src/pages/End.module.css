@@ -3,11 +3,30 @@
     flex-direction: column;
     align-items: center;
     gap: 5vh;
-    padding: 5%;
+    padding: 2%;
 }
 
 .buttons {
     display: flex;
     flex-direction: column;
     gap: 2vh;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.text p {
+    font-size: 3vh;
+}
+
+.list {
+    display: flex;
+    flex-direction: row;
+}
+
+.source {
+    width: 10vh;
 }

@@ -1,13 +1,25 @@
 import style from "./End.module.css";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
 import html2canvas from "html2canvas";
 import { useNavigate } from "react-router-dom";
+import { Howl } from "howler";
+import endingSound from "./../assets/sounds/ending.mp3";
 
 const End = () => {
     const cardRef = useRef<HTMLDivElement>(null);
     const nav = useNavigate();
+    const soundSourceText = [
+        ["스크립트", "네이버 클로바 더빙: 상도"],
+        ["오프닝", "제가 부름"],
+        ["엔딩", "친구가 부름"],
+    ]
+
+    const ending = new Howl({
+        src: [endingSound],
+        loop: true
+    })
 
     const onClickSaveImage = () => {
         if (cardRef.current) {
@@ -21,11 +33,30 @@ const End = () => {
             }
           };
 
+    useEffect(() => {
+        ending.play();
+
+        return () => {
+            ending.stop();
+        }
+    }, [])
+
     return (
         <div className={style.End}>
             <Card ref={cardRef} />
             <Button text="이미지로 저장" onClick={onClickSaveImage}/>
             <Button text="게임 다시 시작!" onClick={() => nav("/", {replace: true})} />
+            <div className={style.text}>
+                <p>{"<음원 출처>"}</p>
+                <ul>
+                    {soundSourceText.map(([source, info]) => (
+                        <li className={style.list}>
+                            <p className={style.source}>{source}</p>
+                            <p className={style.info}>{info}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 };
