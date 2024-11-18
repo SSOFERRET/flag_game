@@ -1,13 +1,13 @@
 import style from "./Game.module.css";
-import { ReactNode, useEffect, useRef, useState } from "react";
-import { getGameCommand, getJudge } from "../utils/game.util";
+import { useEffect, useRef, useState } from "react";
+import { getGameCommand, getJudge, IGameCommand } from "../utils/game.util";
 import boundStore from "../stores/boundStore.store";
 import Layout from "../components/Layout";
 import heart2 from "./../assets/images/heart2.webp";
 import heart3 from "./../assets/images/heart3.webp";
 import { useNavigate } from "react-router-dom";
-import useScriptSound from "../hooks/useScriptSound";
-import Button from "../components/Button";
+import {Howl} from "howler";
+import { IState } from "../models/game.model";
 
 function Game() {
   const nav = useNavigate();
@@ -21,60 +21,96 @@ function Game() {
   const addScore = boundStore.use.addScore();
   const setContinue = boundStore.use.setContinue();
 
-  const [scriptSounds, setScriptSounds] = useState<string[]>([]);
-  const { playAll } = useScriptSound(scriptSounds);
-  // const playButtonRef = useRef<HTMLButtonElement|null>(null);
+  const prevStateRef = useRef<IState|null>(null);
+  const currentCommandRef = useRef<IGameCommand|null>(null);
+  const [judged, setJudged] = useState<"yet"|"pass"|"fail">("yet");
+
+  const playAudio = (sounds: string[]) => {
+    return new Promise((resolve) => {
+      const soundScript = new Howl({
+        src: [sounds[1]],
+        onend: () => resolve(true),
+      });
+
+      const soundSide = new Howl({
+        src: [sounds[0]],
+        onend: () => {
+          soundScript.play();
+        },
+      });
+
+      soundSide.play();
+    });
+  };
+
+  const handleUserAction = () => {
+    const { left: currentLeft, right: currentRight } = boundStore.getState();
+    const currentState = { left: currentLeft, right: currentRight };
+
+    if (currentCommandRef.current && prevStateRef.current) {
+      const judge = getJudge(
+        prevStateRef.current,
+        currentState,
+        currentCommandRef.current!.side,
+        currentCommandRef.current!.command
+      );
+
+      if (judged !== "fail" && !judge) {
+        setJudged("fail")
+      }  
+    }
+  };
+
+  const handleFail = () => {
+    const { life: currentLife } = boundStore.getState();
+        if (currentLife > 0)
+          loseLife();
+        else if (currentLife === 0) {
+          setTimeout(() => nav("/end", { replace: true }), 3000);
+          setContinue(false);
+        }
+  }
 
   const gameStart = async () => {
-    const prevState = { left, right };
+    const {left: prevLeft, right: prevRight} = boundStore.getState();
     const gameCommand = getGameCommand();
-    console.log("스크립트:", gameCommand.script);
 
-    setScriptSounds(gameCommand.sounds);
-    // playButtonRef.current!.click();
+    prevStateRef.current = {left: prevLeft, right: prevRight};
+    currentCommandRef.current = gameCommand;
 
-    // const judge = await new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     const { left: currentLeft, right: currentRight } = boundStore.getState();
-    //     const currentState = {
-    //       left: currentLeft,
-    //       right: currentRight,
-    //     };
-    //     const judge = getJudge(
-    //       prevState,
-    //       currentState,
-    //       gameCommand.side,
-    //       gameCommand.command
-    //     );
-    //     console.log("현상태:", currentState);
-    //     console.log(judge ? "맞음" : "틀림");
-    //     resolve(judge);
-    //   }, 2000);
-    // });
+    await playAudio(gameCommand.sounds);
 
-    // const { life: currentLife } = boundStore.getState();
+      if (judged  === "yet") {
+        const { left: currentLeft, right: currentRight } = boundStore.getState();
+        const currentState = { left: currentLeft, right: currentRight };
+        const judge = getJudge(prevStateRef.current!, currentState, gameCommand.side, gameCommand.command);
+        setJudged(judge ? "pass" : "fail");
+      }
 
-    // if (judge) addScore();
-    // else if (!judge && currentLife > 0) loseLife();
-    // else if (!judge && currentLife === 0) setContinue(false);
-
-    // const { continueGame: currentContinue } = boundStore.getState();
-
-    // console.log(currentContinue);
-
-    // if (currentContinue) gameStart();
-    // else if (!currentContinue && currentLife === 0)
-    //   setTimeout(() => {
-    //     nav("/end", { replace: true });
-    //   }, 3000);
+      setTimeout(() => {
+        const { continueGame } = boundStore.getState();
+      if (continueGame) {
+        setJudged("yet");
+        gameStart();
+      }
+      }, 100);
   };
 
   useEffect(() => {
     gameStart();
-
-    return () => setContinue(false);
   }, []);
 
+  useEffect(() => {
+    handleUserAction();
+  }, [left, right])
+
+  useEffect(() => {
+    switch(judged) {
+      case "fail": return handleFail();
+      case "pass": return addScore();
+      case "yet" : return;
+    }
+  }, [judged])
 
   return (
     <>
@@ -88,7 +124,6 @@ function Game() {
           </section>
         }
       />
-      <button className={style.soundButton} ref={playButtonRef} onClick={playAll}></button>
     </>
   );
 }

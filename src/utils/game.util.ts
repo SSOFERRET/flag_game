@@ -3,7 +3,7 @@ import { flags } from "../constants/flags.constant";
 import { ICommand, ISelectedFlag, IState, TSide, TState } from "../models/game.model";
 import { getRandomNumber } from "./random.util";
 
-interface IGameCommand {
+export interface IGameCommand {
   side: TSide;
   command: ICommand;
   script: string;
@@ -26,7 +26,7 @@ export const getGameCommand = (): IGameCommand => {
 
   const getCommand = (): ICommand => {
     const randomNumber = getRandomNumber(0, commands.length - 1);
-
+    
     return commands[randomNumber];
   }
 
