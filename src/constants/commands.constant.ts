@@ -1,37 +1,25 @@
-import { ICommand } from "../models/game.model"
+import { ICommand } from "../models/game.model";
+import up from "./../assets/scripts/04_up.mp3";
+import down from "./../assets/scripts/05_down.mp3";
+import stay from "./../assets/scripts/06_stay.mp3";
 
-export const upCommand: ICommand[] = [
+export const commands: ICommand[] = [
   {
     id: 0,
     script: "올려",
-    result: "up"
+    result: "up",
+    sound: up,
   },
   {
     id: 1,
-    script: "올리시고",
-    result: "up"
-  },
-  {
-    id: 2,
-    script: "내리지 말고 올려",
-    result: "up"
-  },
-]
-
-export const downCommand: ICommand[] = [
-  {
-    id: 0,
     script: "내려",
-    result: "down"
-  },
-  {
-    id: 1,
-    script: "내리시고",
-    result: "down"
+    result: "down",
+    sound: down,
   },
   {
     id: 2,
-    script: "올리지 말고 내려",
-    result: "down"
+    script: "그대로",
+    result: "stay",
+    sound: stay,
   },
 ]
