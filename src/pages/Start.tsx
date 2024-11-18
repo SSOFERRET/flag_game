@@ -5,17 +5,54 @@ import Layout from "../components/Layout";
 import useKeyEnter from "../hooks/useKeyEnter";
 import useStartGame from "../hooks/useStartGame";
 import Modal from "../components/Modal";
+import {Howl} from "howler";
+import openingSound from "./../assets/sounds/opening.mp3";
+import { useEffect, useState } from "react";
 
 function Start() {
   useKeyEnter();
   const startGame = useStartGame();
+  const [audioAuth, setAudioAuth] = useState<boolean>(false);
+
+  const opening = new Howl({
+    src: [openingSound],
+    format:["mp3"],
+    volume:0.2,
+    loop: true
+  })
+
+  const onClickModalButton = () => {
+    sessionStorage.setItem("audioAuth", "true");
+    setAudioAuth(true);
+  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem("audioAuth")) {
+      setAudioAuth(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (audioAuth)
+      opening.play();
+
+    return () => {
+      opening.stop();
+    }
+  }, [audioAuth]);
 
   return (
     <div className={style.Start}>
-      <Modal 
-        text="음성이 재생됩니다!"
-        buttonText="준비됐어요!"
-       />
+      {
+        !audioAuth && (
+          <Modal 
+            text="음성이 재생됩니다!"
+            buttonText="준비됐어요!"
+            onClick={onClickModalButton}
+           />
+
+        )
+      }
       <Layout 
         headChild={
           <section className={style.title}> 
