@@ -16,8 +16,8 @@ const Layout = ({headChild, footChild, onClick}: ILayout) => {
         <>
             <section className={style.toggleButton}>
                 {onClick && <button className={style.customButton} onClick={onClick} />}
-                <button className={style.leftButton} onClick={onClickLeft}></button>
-                <button className={style.rightButton} onClick={onClickRight}></button>
+                <button className={style.leftButton} onPointerDown={onClickLeft}></button>
+                <button className={style.rightButton} onPointerDown={onClickRight}></button>
             </section> 
             <div className={style.Layout}>
                 <div className={style.head}>
