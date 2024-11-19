@@ -50,8 +50,8 @@ const End = () => {
             <div className={style.text}>
                 <p>{"<음원 출처>"}</p>
                 <ul>
-                    {soundSourceText.map(([source, info]) => (
-                        <li className={style.list}>
+                    {soundSourceText.map(([source, info], idx) => (
+                        <li key={idx} className={style.list}>
                             <p className={style.source}>{source}</p>
                             <p className={style.info}>{info}</p>
                         </li>
