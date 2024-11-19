@@ -23,6 +23,7 @@ function Game() {
 
   const prevStateRef = useRef<IState|null>(null);
   const currentCommandRef = useRef<IGameCommand|null>(null);
+  const initialRenderRef = useRef<boolean>(true);
   const [judged, setJudged] = useState<"yet"|"pass"|"fail">("yet");
 
   const playAudio = (sounds: string[]) => {
@@ -103,6 +104,11 @@ function Game() {
   }, []);
 
   useEffect(() => {
+    if (initialRenderRef.current) {
+      initialRenderRef.current = false;
+      return;
+    }
+
     if (prevStateRef.current && currentCommandRef.current)
       handleUserAction();
   }, [left, right])
