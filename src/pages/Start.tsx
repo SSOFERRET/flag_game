@@ -4,12 +4,10 @@ import button2 from "../assets/images/button2.webp";
 import Layout from "../components/Layout";
 import useKeyEnter from "../hooks/useKeyEnter";
 import useStartGame from "../hooks/useStartGame";
-// import Modal from "../components/Modal";
+import Modal from "../components/Modal";
 import {Howl} from "howler";
 import openingSound from "./../assets/sounds/opening.mp3";
-import { lazy, Suspense, useEffect, useState } from "react";
-
-const Modal = lazy(() => import("../components/Modal"));
+import { useEffect, useState } from "react";
 
 function Start() {
   useKeyEnter();
@@ -47,13 +45,12 @@ function Start() {
     <div className={style.Start}>
       {
         !audioAuth && (
-          <Suspense>
-            <Modal 
-              text="음성이 재생됩니다!"
-              buttonText="준비됐어요!"
-              onClick={onClickModalButton}
-             />
-          </Suspense>
+          <Modal 
+            text="음성이 재생됩니다!"
+            buttonText="준비됐어요!"
+            onClick={onClickModalButton}
+           />
+
         )
       }
       <Layout 
