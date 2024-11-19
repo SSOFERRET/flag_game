@@ -2,7 +2,6 @@ import style from "./End.module.css";
 import { useEffect, useRef } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
-import html2canvas from "html2canvas";
 import { useNavigate } from "react-router-dom";
 import { Howl } from "howler";
 import endingSound from "./../assets/sounds/ending.mp3";
@@ -23,7 +22,11 @@ const End = () => {
 
     const onClickSaveImage = () => {
         if (cardRef.current) {
-            html2canvas(cardRef.current).then((canvas) => {
+            import("html2canvas")
+            .then((html2canvas) =>{
+                return html2canvas.default(cardRef.current!);
+            })
+            .then((canvas) => {
                 const imgData = canvas.toDataURL("image/png");
                 const link = document.createElement("a");
                 link.href = imgData;
