@@ -47,17 +47,15 @@ function Game() {
     const { left: currentLeft, right: currentRight } = boundStore.getState();
     const currentState = { left: currentLeft, right: currentRight };
 
-    if (currentCommandRef.current && prevStateRef.current) {
-      const judge = getJudge(
-        prevStateRef.current,
-        currentState,
-        currentCommandRef.current!.side,
-        currentCommandRef.current!.command
-      );
+    const judge = getJudge(
+      prevStateRef.current!,
+      currentState,
+      currentCommandRef.current!.side,
+      currentCommandRef.current!.command
+    );
 
-      if (judged !== "fail" && !judge) {
-        setJudged("fail")
-      }  
+    if (judged !== "fail" && !judge) {
+      setJudged("fail")
     }
   };
 
@@ -105,7 +103,8 @@ function Game() {
   }, []);
 
   useEffect(() => {
-    handleUserAction();
+    if (prevStateRef.current && currentCommandRef.current)
+      handleUserAction();
   }, [left, right])
 
   useEffect(() => {
