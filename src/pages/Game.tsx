@@ -14,16 +14,16 @@ function Game() {
 
   const left = boundStore.use.left();
   const right = boundStore.use.right();
-  const score = boundStore.use.score();
-  const life = boundStore.use.life();
-
-  const loseLife = boundStore.use.loseLife();
+  const score = boundStore.use.score();  
   const addScore = boundStore.use.addScore();
-  const setContinue = boundStore.use.setContinue();
-
+  
+  const initialRenderRef = useRef<boolean>(true);
   const prevStateRef = useRef<IState|null>(null);
   const currentCommandRef = useRef<IGameCommand|null>(null);
-  const initialRenderRef = useRef<boolean>(true);
+  
+  const [life, loseLife] = useState<number>(3);
+  const continueGameRef = useRef<boolean>(true);
+
   const [judged, setJudged] = useState<"yet"|"pass"|"fail">("yet");
 
   const playAudio = (sounds: string[]) => {
@@ -61,13 +61,13 @@ function Game() {
   };
 
   const handleFail = () => {
-    const { life: currentLife } = boundStore.getState();
-        if (currentLife > 0)
-          loseLife();
-        else if (currentLife === 0) {
-          setTimeout(() => nav("/end", { replace: true }), 3000);
-          setContinue(false);
-        }
+
+      if (life > 0)
+        loseLife((prev) => prev - 1);
+      else if (life === 0) {
+        setTimeout(() => nav("/end", { replace: true }), 3000);
+        continueGameRef.current = false;
+      }
   }
 
   const gameStart = async () => {
@@ -87,8 +87,7 @@ function Game() {
       }
 
       setTimeout(() => {
-        const { continueGame } = boundStore.getState();
-      if (continueGame) {
+      if (continueGameRef.current) {
         setJudged("yet");
         gameStart();
       }
@@ -99,7 +98,7 @@ function Game() {
     gameStart();
 
     return () => {
-      setContinue(false);
+      continueGameRef.current = false;
     }
   }, []);
 
