@@ -4,16 +4,17 @@ interface IProps {
     text: string;
     onClick: () => void;
     textSize?: "small" | "middle" | "large";
+    ariaLabel?: string;
 }
 
-const Button = ({text, onClick, textSize="large"}: IProps) => {
+const Button = ({text, onClick, textSize="large", ariaLabel}: IProps) => {
     return (
         <button
-          aria-label='universal button component'
-          className={textSize === "large" ? style.buttonLarge
-            : textSize === "middle" ? style.buttonMiddle
-            : style.buttonSmall}
+        className={textSize === "large" ? style.buttonLarge
+          : textSize === "middle" ? style.buttonMiddle
+          : style.buttonSmall}
           onClick={onClick}
+          aria-label={ariaLabel}
         >
             {text}
         </button>
