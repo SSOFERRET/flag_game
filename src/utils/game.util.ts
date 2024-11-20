@@ -10,24 +10,21 @@ export interface IGameCommand {
   sounds: string[];
 }
 
-export const getGameCommand = (): IGameCommand => {
+export const getGameCommand = (): IGameCommand => { // left : right: both = 2 : 2 : 1
   const getSide = (): TSide => {
     const randomNumber = getRandomNumber(0, 4);
 
-    switch (randomNumber) {
-      case 0: return "left";
-      case 1: return "right";
-      case 2: return "left";
-      case 3: return "right";
-      case 4: return "both";
-      default: return "both";
-    }
+    if (randomNumber === 4) return "both";
+    else if (randomNumber % 2 === 0) return "left";
+    else if (randomNumber % 2 === 1) return "right";
   }
 
-  const getCommand = (): ICommand => {
-    const randomNumber = getRandomNumber(0, commands.length - 1);
+  const getCommand = (): ICommand => { // up : down : stay = 3 : 3 : 1
+    const randomNumber = getRandomNumber(0, 6);
 
-    return commands[randomNumber];
+    if (randomNumber === 6) return commands[2];
+    else if (randomNumber % 2 === 0) return commands[0];
+    else if (randomNumber % 2 === 1) return commands[1];
   }
 
   const getScriptString = (side: TSide, command: ICommand, selectedFlag: ISelectedFlag): string => {
