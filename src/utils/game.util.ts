@@ -17,6 +17,7 @@ export const getGameCommand = (): IGameCommand => { // left : right: both = 2 : 
     if (randomNumber === 4) return "both";
     else if (randomNumber % 2 === 0) return "left";
     else if (randomNumber % 2 === 1) return "right";
+    else return "both";
   }
 
   const getCommand = (): ICommand => { // up : down : stay = 3 : 3 : 1
@@ -25,6 +26,7 @@ export const getGameCommand = (): IGameCommand => { // left : right: both = 2 : 
     if (randomNumber === 6) return commands[2];
     else if (randomNumber % 2 === 0) return commands[0];
     else if (randomNumber % 2 === 1) return commands[1];
+    else return commands[2];
   }
 
   const getScriptString = (side: TSide, command: ICommand, selectedFlag: ISelectedFlag): string => {
