@@ -9,7 +9,7 @@ interface IProps {
 const Button = ({text, onClick, textSize="large"}: IProps) => {
     return (
         <button
-          name='파란색 버튼 컴포넌트'
+          aria-label='universal button component'
           className={textSize === "large" ? style.buttonLarge
             : textSize === "middle" ? style.buttonMiddle
             : style.buttonSmall}
