@@ -28,7 +28,7 @@ const Modal = ({ text, image, buttonText, onClick }: IModal) => {
                                 onClick={onClickButton}
                                 text={buttonText}
                                 textSize={"middle"}
-                                ariaLabel="sound auth button"
+                                aria-label="sound auth button"
                             />
                         )}
                     </div>

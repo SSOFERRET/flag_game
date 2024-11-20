@@ -2,19 +2,16 @@ import style from "./Button.module.css";
 
 interface IProps {
     text: string;
-    onClick: () => void;
     textSize?: "small" | "middle" | "large";
-    ariaLabel?: string;
 }
 
-const Button = ({text, onClick, textSize="large", ariaLabel}: IProps) => {
+const Button: React.FC<IProps & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({text, textSize="large", ...props}: IProps) => {
     return (
         <button
         className={textSize === "large" ? style.buttonLarge
           : textSize === "middle" ? style.buttonMiddle
           : style.buttonSmall}
-          onClick={onClick}
-          aria-label={ariaLabel}
+          {...props}
         >
             {text}
         </button>
