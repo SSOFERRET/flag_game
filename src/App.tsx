@@ -15,7 +15,7 @@ function App() {
         <Route path='/end' element={<End />} />
       </Routes>
       <section className="background">
-        <img src={background} />
+        <img alt='배경이미지' src={background} />
       </section>
     </div>
   )

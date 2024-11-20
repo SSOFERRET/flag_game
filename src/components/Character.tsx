@@ -18,15 +18,18 @@ const Character = () => {
           <div className={style.userName}>{userName}</div>
           <img className={style.head} 
             src={headImg}
+            alt='캐릭터 머리' 
             />
           <img key={`left_${left}`} className={`${left === "down" ? style.left : style.leftUp}`} 
             src={left==="down" ? leftDownImg : leftUpImg} 
+            alt='캐릭터 왼팔' 
           />
           <img key={`right_${right}`} className={`${right === "down" ? style.right : style.rightUp}`}  
             src={right==="down" ? rightDownImg : rightUpImg}
+            alt='캐릭터 오른팔' 
           />
       </section>
-      <img className={style.legs} src={legImg} />
+      <img className={style.legs} src={legImg} alt='캐릭터 다리' />
     </div>
   )
 }
