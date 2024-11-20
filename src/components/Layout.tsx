@@ -15,7 +15,7 @@ const Layout = ({headChild, footChild, onClick}: ILayout) => {
     return (
         <>
             <section className={style.toggleButton}>
-                {onClick && <button className={style.customButton} onClick={onClick} />}
+                {onClick && <button className={style.customButton} onClick={onClick} aria-label='character custom' />}
                 <button aria-label='toggle left side' className={style.leftButton} onPointerDown={onClickLeft}></button>
                 <button aria-label='toggle right side' className={style.rightButton} onPointerDown={onClickRight}></button>
             </section> 
