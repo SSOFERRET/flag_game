@@ -58,13 +58,13 @@ function Start() {
       <Layout 
         headChild={
           <section className={style.title}> 
-            <img src={title} />
+            <img src={title} alt='게임 타이틀' />
           </section>
         }
         footChild={(
           <section className={style.startButton} onClick={startGame}>
             <div className={style.buttonText}>게임 시작!</div>
-            <img src={button2}/>
+            <img src={button2} alt='말풍선. 게임 시작 버튼으로 사용' />
           </section>
         )}
         onClick={()=>{console.log("마이 보디!!!")}}

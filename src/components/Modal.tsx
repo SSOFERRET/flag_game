@@ -22,7 +22,7 @@ const Modal = ({ text, image, buttonText, onClick }: IModal) => {
                 <div>
                     <div className={style.Modal}>
                         <div className={style.text}>{text}</div>
-                        {image && <img src={image} className={style.image} />}
+                        {image && <img src={image} className={style.image} alt={`${text},라는 안내와 관련된 이미지`} />}
                         {buttonText && (
                             <Button
                                 onClick={onClickButton}
