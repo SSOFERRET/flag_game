@@ -126,9 +126,9 @@ function Game() {
         headChild={<section className={style.score}>{score}</section>}
         footChild={
           <section className={style.life}>
-            <img className={style.heart} src={life >= 1 ? heart3 : ""} alt="첫번째 생명" />
-            <img className={style.heart} src={life >= 2 ? heart2 : ""} alt="두번째 생명" />
-            <img className={style.heart} src={life >= 3 ? heart3 : ""} alt="세번째 생명" />
+            <img className={style.heart} src={life >= 1 ? heart3 : ""} alt='' />
+            <img className={style.heart} src={life >= 2 ? heart2 : ""} alt='' />
+            <img className={style.heart} src={life >= 3 ? heart3 : ""} alt='' />
           </section>
         }
       />
