@@ -17,7 +17,6 @@ function Game() {
   const score = boundStore.use.score();  
   const addScore = boundStore.use.addScore();
   
-  const initialRenderRef = useRef<boolean>(true);
   const prevStateRef = useRef<IState|null>(null);
   const currentCommandRef = useRef<IGameCommand|null>(null);
   
@@ -74,8 +73,10 @@ function Game() {
     const {left: prevLeft, right: prevRight} = boundStore.getState();
     const gameCommand = getGameCommand();
 
+    console.log("시작")
     prevStateRef.current = {left: prevLeft, right: prevRight};
     currentCommandRef.current = gameCommand;
+    console.log("상태, 스크립트 저장 완료")
 
     await playAudio(gameCommand.sounds);
 
@@ -95,22 +96,17 @@ function Game() {
   };
 
   useEffect(() => {
+    if (prevStateRef.current && currentCommandRef.current)
+      handleUserAction();
+  }, [left, right])
+
+  useEffect(() => {
     gameStart();
 
     return () => {
       continueGameRef.current = false;
     }
   }, []);
-
-  useEffect(() => {
-    if (initialRenderRef.current) {
-      initialRenderRef.current = false;
-      return;
-    }
-
-    if (prevStateRef.current && currentCommandRef.current)
-      handleUserAction();
-  }, [left, right])
 
   useEffect(() => {
     switch(judged) {
