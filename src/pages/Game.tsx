@@ -73,10 +73,8 @@ function Game() {
     const {left: prevLeft, right: prevRight} = boundStore.getState();
     const gameCommand = getGameCommand();
 
-    console.log("시작")
     prevStateRef.current = {left: prevLeft, right: prevRight};
     currentCommandRef.current = gameCommand;
-    console.log("상태, 스크립트 저장 완료")
 
     await playAudio(gameCommand.sounds);
 
