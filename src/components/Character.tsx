@@ -1,11 +1,12 @@
 import style from "./Character.module.css";
-import headImg from "./../assets/images/head.webp";
-import leftDownImg from "./../assets/images/leftDown.webp";
-import leftUpImg from "./../assets/images/leftUp.webp";
-import rightDownImg from "./../assets/images/rightDown.webp";
-import rightUpImg from "./../assets/images/rightUp.webp";
-import legImg from "./../assets/images/legs.webp";
 import boundStore from "../stores/boundStore.store";
+
+const headImg = "/images/head.webp";
+const leftDownImg = "/images/leftDown.webp";
+const leftUpImg = "/images/leftUp.webp";
+const rightDownImg = "/images/rightDown.webp";
+const rightUpImg = "/images/rightUp.webp";
+const legImg = "/images/legs.webp";
 
 const Character = () => {
   const left = boundStore.use.left();

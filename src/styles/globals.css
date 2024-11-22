@@ -24,17 +24,44 @@ footer, header, hgroup, menu, nav, section {
     display: block;
 }
 
+body {
+  font-family: Goseogu;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(238, 238, 238);
+}
+
+.background {
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%);
+  width: auto;
+  height: auto;
+  z-index: -1;
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2), -4px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-aspect-ratio: 9/16) {
+  .background {
+    width: auto;
+    height: 100vh;
+  }
+}
+
+@media (max-aspect-ratio: 9/16) {
+  .background {
+    height: 100vh;
+  }
+}
+
+
 @font-face {
   font-family: Goseogu;
-  src: url("./assets/fonts/Goseogu-Regular.ttf");
+  src: url("/fonts/Goseogu-Regular.ttf");
 }
 
 @font-face {
   font-family: Jalnan;
-  src: url("./assets/fonts/Jalnan2TTF.ttf");
-}
-
-body {
-  background-color: rgb(238, 238, 238);
-  font-family: Goseogu;
+  src: url("/fonts/Jalnan2TTF.ttf");
 }

@@ -1,14 +1,15 @@
-import style from "./End.module.css";
+import style from "./end.module.css";
 import { useEffect, useRef } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
-import { useNavigate } from "react-router-dom";
 import { Howl } from "howler";
-import endingSound from "./../assets/sounds/ending.mp3";
+import { useRouter } from "next/router";
+
+const endingSound = "/sounds/ending.mp3";
 
 const End = () => {
     const cardRef = useRef<HTMLDivElement>(null);
-    const nav = useNavigate();
+    const router = useRouter();
     const soundSourceText = [
         ["스크립트", "네이버 클로바 더빙: 상도"],
         ["오프닝", "제가 부름"],
@@ -46,7 +47,7 @@ const End = () => {
         <div className={style.End}>
             <Card ref={cardRef} />
             <Button text="이미지로 저장" onClick={onClickSaveImage}/>
-            <Button text="게임 다시 시작!" onClick={() => nav("/", {replace: true})} />
+            <Button text="게임 다시 시작!" onClick={() => router.push("/")} />
             <div className={style.text}>
                 <p>{"<음원 출처>"}</p>
                 <ul>

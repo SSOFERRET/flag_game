@@ -1,14 +1,15 @@
-import style from "./Start.module.css";
-import title from "../assets/images/title2.webp";
-import button2 from "../assets/images/button2.webp";
+import style from "./index.module.css";
 import Layout from "../components/Layout";
 import useKeyEnter from "../hooks/useKeyEnter";
 import useStartGame from "../hooks/useStartGame";
 import {Howl} from "howler";
-import openingSound from "./../assets/sounds/opening.mp3";
 import { lazy, Suspense, useEffect, useState } from "react";
 
-const Modal = lazy(() => (import("./../components/Modal")));
+const title = "/images/title2.webp";
+const button2 = "/images/button2.webp";
+const openingSound = "/sounds/opening.mp3";
+
+const Modal = lazy(() => (import("../components/Modal")));
 
 function Start() {
   useKeyEnter();
@@ -64,7 +65,7 @@ function Start() {
         footChild={(
           <section className={style.startButton} onClick={startGame}>
             <div className={style.buttonText}>게임 시작!</div>
-            <img src={button2} alt='말풍선. 게임 시작 버튼으로 사용' />
+            <img className={style.buttonImg} src={button2} alt='말풍선. 게임 시작 버튼으로 사용' />
           </section>
         )}
         onClick={()=>{console.log("마이 보디!!!")}}

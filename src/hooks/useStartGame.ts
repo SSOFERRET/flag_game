@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import boundStore from "../stores/boundStore.store";
+import { useRouter } from "next/router";
 
 const useStartGame = () => {
-  const nav = useNavigate();
+  const router = useRouter();
   const setInitializeGame = boundStore.use.setInitializeGame();
   const setInitializeMotion = boundStore.use.setInitializeMotion();
 
   const startGame = () => {
-    nav("/game");
+    router.push("/game");
     setInitializeGame();
     setInitializeMotion();
   }

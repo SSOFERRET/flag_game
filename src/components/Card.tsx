@@ -1,9 +1,9 @@
 import style from "./Card.module.css";
 import boundStore from "../stores/boundStore.store";
-import title3 from "./../assets/images/title3.webp";
 import { forwardRef } from "react";
-import cardImg from "../assets/images/endCard.webp";
 
+const title3 = "/images/title3.webp";
+const cardImg = "/images/endCard.webp";
 
 const Card = forwardRef<HTMLDivElement>((_, ref) => {
     const score = boundStore.use.score();

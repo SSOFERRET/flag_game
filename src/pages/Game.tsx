@@ -1,16 +1,24 @@
-import style from "./Game.module.css";
+import style from "./game.module.css";
 import { useEffect, useRef, useState } from "react";
 import { getGameCommand, getJudge, IGameCommand } from "../utils/game.util";
 import boundStore from "../stores/boundStore.store";
 import Layout from "../components/Layout";
-import heart2 from "./../assets/images/heart2.webp";
-import heart3 from "./../assets/images/heart3.webp";
-import { useNavigate } from "react-router-dom";
 import {Howl} from "howler";
 import { IState } from "../models/game.model";
+import { useRouter } from "next/router";
+
+const heart2 = "/images/heart2.webp";
+const heart3 = "/images/heart3.webp";
+
+export const getServerSideProps = () => {
+
+  return {
+      props: {},
+  }
+};
 
 function Game() {
-  const nav = useNavigate();
+  const router = useRouter();
 
   const left = boundStore.use.left();
   const right = boundStore.use.right();
@@ -64,12 +72,13 @@ function Game() {
       if (life > 0)
         loseLife((prev) => prev - 1);
       else if (life === 0) {
-        setTimeout(() => nav("/end", { replace: true }), 3000);
+        setTimeout(() => router.push("/end"), 3000);
         continueGameRef.current = false;
       }
   }
 
   const gameStart = async () => {
+    console.log("?");
     const {left: prevLeft, right: prevRight} = boundStore.getState();
     const gameCommand = getGameCommand();
 
