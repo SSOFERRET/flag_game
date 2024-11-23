@@ -1,5 +1,5 @@
 import style from "./Game.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { getGameCommand, getJudge, IGameCommand } from "../utils/game.util";
 import boundStore from "../stores/boundStore.store";
 import Layout from "../components/Layout";
@@ -14,16 +14,18 @@ function Game() {
 
   const left = boundStore.use.left();
   const right = boundStore.use.right();
-  const score = boundStore.use.score();  
+  const score = boundStore.use.score();
+  const life = boundStore.use.life();
   const addScore = boundStore.use.addScore();
+  const loseLife = boundStore.use.loseLife();
   
   const prevStateRef = useRef<IState|null>(null);
   const currentCommandRef = useRef<IGameCommand|null>(null);
   
-  const [life, loseLife] = useState<number>(3);
   const continueGameRef = useRef<boolean>(true);
 
-  const [judged, setJudged] = useState<"yet"|"pass"|"fail">("yet");
+  const judgedRef = useRef<"yet"|"pass"|"fail">("yet");
+  const canJudgeRef = useRef<boolean>(true);
 
   const playAudio = (sounds: string[]) => {
     return new Promise((resolve) => {
@@ -44,58 +46,75 @@ function Game() {
   };
 
   const handleUserAction = () => {
-    const { left: currentLeft, right: currentRight } = boundStore.getState();
-    const currentState = { left: currentLeft, right: currentRight };
+        const { left: currentLeft, right: currentRight } = boundStore.getState();
+      const currentState = { left: currentLeft, right: currentRight };
+  
+      const judge = getJudge(
+        prevStateRef.current!,
+        currentState,
+        currentCommandRef.current!.side,
+        currentCommandRef.current!.command
+      );
 
-    const judge = getJudge(
-      prevStateRef.current!,
-      currentState,
-      currentCommandRef.current!.side,
-      currentCommandRef.current!.command
-    );
-
-    if (judged !== "fail" && !judge) {
-      setJudged("fail")
-    }
+      if (judgedRef.current !== "fail" && !judge) {
+        judgedRef.current = "fail"
+        handleScoreLife()
+      }
   };
 
   const handleFail = () => {
-
+    const {life} = boundStore.getState();
       if (life > 0)
-        loseLife((prev) => prev - 1);
-      else if (life === 0) {
-        setTimeout(() => nav("/end", { replace: true }), 3000);
+        loseLife();
+      else if (life <= 0) {
         continueGameRef.current = false;
+        setTimeout(() => nav("/end", { replace: true }), 3000);
       }
   }
 
+  const handleScoreLife = () => {
+    switch(judgedRef.current) {
+      case "fail": return handleFail();
+      case "pass": return addScore();
+      case "yet" : return;
+    }
+  }
+
   const gameStart = async () => {
+    canJudgeRef.current = false;
     const {left: prevLeft, right: prevRight} = boundStore.getState();
     const gameCommand = getGameCommand();
 
     prevStateRef.current = {left: prevLeft, right: prevRight};
     currentCommandRef.current = gameCommand;
+    canJudgeRef.current = true;
 
     await playAudio(gameCommand.sounds);
 
-      if (judged  === "yet") {
+      if (judgedRef.current  === "yet" && canJudgeRef.current) {
         const { left: currentLeft, right: currentRight } = boundStore.getState();
         const currentState = { left: currentLeft, right: currentRight };
         const judge = getJudge(prevStateRef.current!, currentState, gameCommand.side, gameCommand.command);
-        setJudged(judge ? "pass" : "fail");
+        judgedRef.current = judge ? "pass" : "fail";
+        handleScoreLife();
       }
 
       setTimeout(() => {
       if (continueGameRef.current) {
-        setJudged("yet");
+        judgedRef.current = "yet"
         gameStart();
       }
       }, 100);
   };
 
   useEffect(() => {
-    if (prevStateRef.current && currentCommandRef.current)
-      handleUserAction();
+    if (prevStateRef.current && currentCommandRef.current && canJudgeRef.current){
+      canJudgeRef.current = false;
+      setTimeout(() => {
+        handleUserAction();
+        canJudgeRef.current = true;
+    }, 100) 
+    }
   }, [left, right])
 
   useEffect(() => {
@@ -105,14 +124,6 @@ function Game() {
       continueGameRef.current = false;
     }
   }, []);
-
-  useEffect(() => {
-    switch(judged) {
-      case "fail": return handleFail();
-      case "pass": return addScore();
-      case "yet" : return;
-    }
-  }, [judged])
 
   return (
     <>
