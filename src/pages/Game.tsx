@@ -1,5 +1,5 @@
 import style from "./Game.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getGameCommand, getJudge, IGameCommand } from "../utils/game.util";
 import boundStore from "../stores/boundStore.store";
 import Layout from "../components/Layout";
@@ -8,6 +8,11 @@ import heart3 from "./../assets/images/heart3.webp";
 import { useNavigate } from "react-router-dom";
 import {Howl} from "howler";
 import { IState } from "../models/game.model";
+import { FaXmark } from "react-icons/fa6";
+import { PiCircleBold } from "react-icons/pi";
+import useSound from "use-sound";
+import correctSound from "./../assets/sounds/correct.mp3";
+import wrongSound from "./../assets/sounds/wrong.mp3";
 
 function Game() {
   const nav = useNavigate();
@@ -25,7 +30,11 @@ function Game() {
   const continueGameRef = useRef<boolean>(true);
 
   const judgedRef = useRef<"yet"|"pass"|"fail">("yet");
+  const [judgeSign, setJudgeSign] = useState<"pass"|"fail"|null>(null);
   const canJudgeRef = useRef<boolean>(true);
+
+  const [playCorrect] = useSound(correctSound);
+  const [playWrong] = useSound(wrongSound);
 
   const playAudio = (sounds: string[]) => {
     return new Promise((resolve) => {
@@ -73,6 +82,9 @@ function Game() {
   }
 
   const handleScoreLife = () => {
+    if (judgedRef.current !== "yet") 
+      setJudgeSign(judgedRef.current);
+    
     switch(judgedRef.current) {
       case "fail": return handleFail();
       case "pass": return addScore();
@@ -125,8 +137,22 @@ function Game() {
     }
   }, []);
 
+  useEffect(() => {
+    if (judgeSign) {
+      if (judgeSign === "pass") playCorrect();
+      if (judgeSign === "fail") playWrong();
+      setTimeout(() => {
+        setJudgeSign(null);
+      }, 800)
+    }
+  }, [judgeSign])
+
   return (
     <>
+      <section className={style.judgeSign}>
+        {judgeSign === "pass" && <PiCircleBold className={style.passSign}/>}
+        {judgeSign === "fail" && <FaXmark className={style.failSign}/>}
+      </section>
       <Layout
         headChild={<section className={style.score}>{score}</section>}
         footChild={
