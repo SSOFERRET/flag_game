@@ -7,6 +7,7 @@ import useStartGame from "../hooks/useStartGame";
 import {Howl} from "howler";
 import openingSound from "./../assets/sounds/opening.mp3";
 import { lazy, Suspense, useEffect, useState } from "react";
+import ControlInfo from "../components/ControlInfo";
 
 const Modal = lazy(() => (import("./../components/Modal")));
 
@@ -55,6 +56,7 @@ function Start() {
           </Suspense>
         )
       }
+      <ControlInfo />
       <Layout 
         headChild={
           <section className={style.title}> 
