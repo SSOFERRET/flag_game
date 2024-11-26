@@ -10,6 +10,9 @@ import {Howl} from "howler";
 import { IState } from "../models/game.model";
 import { FaXmark } from "react-icons/fa6";
 import { PiCircleBold } from "react-icons/pi";
+import useSound from "use-sound";
+import correctSound from "./../assets/sounds/correct.mp3";
+import wrongSound from "./../assets/sounds/wrong.mp3";
 
 function Game() {
   const nav = useNavigate();
@@ -29,6 +32,9 @@ function Game() {
   const judgedRef = useRef<"yet"|"pass"|"fail">("yet");
   const [judgeSign, setJudgeSign] = useState<"pass"|"fail"|null>(null);
   const canJudgeRef = useRef<boolean>(true);
+
+  const [playCorrect] = useSound(correctSound);
+  const [playWrong] = useSound(wrongSound);
 
   const playAudio = (sounds: string[]) => {
     return new Promise((resolve) => {
@@ -133,6 +139,8 @@ function Game() {
 
   useEffect(() => {
     if (judgeSign) {
+      if (judgeSign === "pass") playCorrect();
+      if (judgeSign === "fail") playWrong();
       setTimeout(() => {
         setJudgeSign(null);
       }, 800)
