@@ -112,6 +112,7 @@ function Game() {
         throw new Error("아직 판정이 안되었습니다.");
     } catch (err) {
       console.error(err);
+      handleUserAction();
     } finally {
       handleScoreLife();
 
