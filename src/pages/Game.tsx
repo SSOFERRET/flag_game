@@ -67,7 +67,8 @@ function Game() {
 
       if (judgedRef.current !== "fail" && !judge) {
         judgedRef.current = "fail"
-        handleScoreLife()
+      } else if (judgedRef.current === "yet" && judge) {
+        judgedRef.current = "pass"
       }
   };
 
@@ -92,31 +93,33 @@ function Game() {
     }
   }
 
-  const gameStart = async () => {
-    canJudgeRef.current = false;
-    const {left: prevLeft, right: prevRight} = boundStore.getState();
-    const gameCommand = getGameCommand();
+  const gameLoop = async () => {
+    try {
+      canJudgeRef.current = false;
+      const {left: prevLeft, right: prevRight} = boundStore.getState();
+      const gameCommand = getGameCommand();
+  
+      prevStateRef.current = {left: prevLeft, right: prevRight};
+      currentCommandRef.current = gameCommand;
+      canJudgeRef.current = true;
+  
+      await playAudio(gameCommand.sounds);
+  
+      if (judgedRef.current  === "yet" && canJudgeRef.current)
+        handleUserAction();
 
-    prevStateRef.current = {left: prevLeft, right: prevRight};
-    currentCommandRef.current = gameCommand;
-    canJudgeRef.current = true;
+      if (judgedRef.current === "yet") 
+        throw new Error("아직 판정이 안되었습니다.");
+    } catch (err) {
+      console.error(err);
+    } finally {
+      handleScoreLife();
 
-    await playAudio(gameCommand.sounds);
-
-      if (judgedRef.current  === "yet" && canJudgeRef.current) {
-        const { left: currentLeft, right: currentRight } = boundStore.getState();
-        const currentState = { left: currentLeft, right: currentRight };
-        const judge = getJudge(prevStateRef.current!, currentState, gameCommand.side, gameCommand.command);
-        judgedRef.current = judge ? "pass" : "fail";
-        handleScoreLife();
-      }
-
-      setTimeout(() => {
       if (continueGameRef.current) {
         judgedRef.current = "yet"
-        gameStart();
+        gameLoop();
       }
-      }, 100);
+    }     
   };
 
   useEffect(() => {
@@ -130,7 +133,7 @@ function Game() {
   }, [left, right])
 
   useEffect(() => {
-    gameStart();
+    gameLoop();
 
     return () => {
       continueGameRef.current = false;
