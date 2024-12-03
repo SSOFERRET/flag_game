@@ -14,7 +14,8 @@ const Modal = lazy(() => (import("./../components/Modal")));
 function Start() {
   useKeyEnter();
   const startGame = useStartGame();
-  const [continuedSession, setContinuedSession] = useState<boolean>(false);
+  const [isAudioPermitted, setIsAudioPermitted] = useState<boolean>(false);
+  const [needControlInfo, setNeedControlInfo] = useState<boolean>(true);
 
   const opening = new Howl({
     src: [openingSound],
@@ -24,29 +25,30 @@ function Start() {
   })
 
   const onClickModalButton = () => {
-    sessionStorage.setItem("continuedSession", "true");
-    setContinuedSession(true);
+    sessionStorage.setItem("isAudioPermitted", "true");
+    setIsAudioPermitted(true);
   }
 
   useEffect(() => {
-    if (sessionStorage.getItem("continuedSession")) {
-      setContinuedSession(true);
+    if (sessionStorage.getItem("isAudioPermitted")) {
+      setIsAudioPermitted(true);
+      setNeedControlInfo(false)
     }
   }, []);
 
   useEffect(() => {
-    if (continuedSession)
+    if (isAudioPermitted)
       opening.play();
 
     return () => {
       opening.stop();
     }
-  }, [continuedSession]);
+  }, [isAudioPermitted]);
 
   return (
     <div className={style.Start}>
       {
-        !continuedSession && (
+        !isAudioPermitted && (
           <Suspense>
             <Modal 
               text="음성이 재생됩니다!"
@@ -56,7 +58,7 @@ function Start() {
           </Suspense>
         )
       }
-      { !continuedSession && <ControlInfo />}
+      { needControlInfo && <ControlInfo />}
       <Layout 
         headChild={
           <section className={style.title}> 
