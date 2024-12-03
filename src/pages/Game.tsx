@@ -124,12 +124,12 @@ function Game() {
   };
 
   useEffect(() => {
-    if (prevStateRef.current && currentCommandRef.current && canJudgeRef.current){
-      canJudgeRef.current = false;
-      setTimeout(() => {
+    if (prevStateRef.current && currentCommandRef.current){
+      const timer = setTimeout(() => {
         handleUserAction();
-        canJudgeRef.current = true;
-    }, 100) 
+      }, 100);
+      
+      return () => clearTimeout(timer);
     }
   }, [left, right])
 
